@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="LargeMarginView">
+        <item name="android:layout_marginStart">@dimen/largeMargin</item>
+        <item name="android:layout_marginEnd">@dimen/largeMargin</item>
+        <item name="android:layout_marginTop">@dimen/largeMargin</item>
+    </style>
+
+    <style name="SmallMarginView">
+        <item name="android:layout_marginStart">@dimen/smallMargin</item>
+        <item name="android:layout_marginEnd">@dimen/smallMargin</item>
+        <item name="android:layout_marginTop">@dimen/smallMargin</item>
+        <item name="android:layout_marginBottom">@dimen/smallMargin</item>
+    </style>
+
+    <style name="LargeMarginView.MediumText">
+        <item name="android:textSize">@dimen/mediumTextSize</item>
+        <item name="minHeight">24dp</item>
+        <item name="android:textColor">?attr/appBigTextColor</item>
+    </style>
+
+    <style name="SmallMarginView.SmallText">
+        <item name="android:textSize">@dimen/smallTextSize</item>
+        <item name="android:textColor">?attr/appSmallTextColor</item>
+    </style>
+
+    <style name="SmallMarginCard" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_marginStart">@dimen/smallMargin</item>
+        <item name="android:layout_marginEnd">@dimen/smallMargin</item>
+        <item name="android:layout_marginTop">@dimen/smallMargin</item>
+        <item name="cardBackgroundColor">?appCardColor</item>
+        <item name="cornerRadius">1dp</item>
+        <item name="cardElevation">2dp</item>
+    </style>
+
+    <style name="SmallMarginBorderlessButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:layout_marginStart">@dimen/smallMargin</item>
+        <item name="android:layout_marginEnd">@dimen/smallMargin</item>
+        <item name="android:layout_marginTop">@dimen/smallMargin</item>
+        <item name="minWidth">90dp</item>
+        <item name="android:textSize">@dimen/smallTextSize</item>
+    </style>
+
+    <style name="SmallActionImage" parent="Widget.AppCompat.ActionButton">
+        <item name="android:layout_width">@dimen/smallImageSize</item>
+        <item name="android:layout_height">@dimen/smallImageSize</item>
+        <item name="android:layout_marginStart">@dimen/smallMargin</item>
+        <item name="android:layout_marginEnd">@dimen/smallMargin</item>
+        <item name="android:layout_marginTop">@dimen/smallMargin</item>
+        <item name="android:layout_marginBottom">@dimen/smallMargin</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+</resources>

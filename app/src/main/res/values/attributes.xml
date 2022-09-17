@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="appBigTextColor" format="reference" />
+    <attr name="appSmallTextColor" format="reference" />
+    <attr name="appCardColor" format="reference" />
+
+</resources>
