@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Denettest</string>
+    <string name="app_name">Node Test</string>
     <string name="node_label">Узел:</string>
     <string name="add_child_button_label">Добавить дочерний</string>
     <string name="parent_node_label">Родительский узел:</string>
     <string name="child_nodes_label">Дочерние узлы:</string>
     <string name="root_node_label">Это головной узел</string>
-    <string name="delete_node">Удалить узел</string>
+    <string name="delete_node">Удаление узела</string>
+    <string name="cancel">Отмена</string>
+    <string name="ok">Да</string>
+    <string name="delete_confirmation_message">Вы действительно хотите удалить узел?</string>
+    <string name="root_node_add_error">Ошибка добавления корневого узла</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
 </resources>

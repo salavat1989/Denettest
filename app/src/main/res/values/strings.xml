@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Denettest</string>
+    <string name="app_name">Node Test</string>
     <string name="node_label">Node:</string>
     <string name="add_child_button_label">Add child</string>
     <string name="parent_node_label">Parent node:</string>
@@ -8,4 +8,9 @@
     <string name="root_node_label">It\'s root node</string>
     <string name="delete_node">Delete node</string>
     <string name="node_name_format" translatable="false">0x%s</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_confirmation_message">Are you sure you want to delete the node?</string>
+    <string name="ok">OK</string>
+    <string name="root_node_add_error">Root node add error</string>
+    <string name="unknown_error">Unknown error</string>
 </resources>

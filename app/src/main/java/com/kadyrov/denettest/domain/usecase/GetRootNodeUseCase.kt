@@ -6,8 +6,8 @@ import javax.inject.Inject
 
 class GetRootNodeUseCase @Inject constructor(
 	private val repository: DeNetRepository,
-	private val addFirstNodeUseCase: AddFirstNodeUseCase,
+	private val addRootNodeUseCase: AddRootNodeUseCase,
 ) {
 
-	suspend operator fun invoke(): Node = repository.getRootNode() ?: addFirstNodeUseCase()
+	suspend operator fun invoke(): Node = repository.getRootNode() ?: addRootNodeUseCase()
 }

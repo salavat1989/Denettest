@@ -1,104 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvNodeLabel"
-        style="@style/LargeMarginView.MediumText"
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/mainProgress"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/node_label"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/tvNode"
-        style="@style/LargeMarginView.MediumText"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvNodeLabel"
-        tools:text="0x48713867616473156767516473156767516473156767597" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvParentNodeLabel"
-        style="@style/LargeMarginView.MediumText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/parent_node_label"
-        app:layout_constraintTop_toBottomOf="@id/tvNode" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/parentCard"
-        style="@style/SmallMarginCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvParentNodeLabel">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:id="@+id/tvNodeLabel"
+            style="@style/LargeMarginView.MediumText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:text="@string/node_label"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/ivArrowRight"
-                style="@style/SmallActionImage"
-                android:contentDescription="@string/arrow_right"
-                android:src="@drawable/outline_arrow_back_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvNode"
+            style="@style/LargeMarginView.MediumText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvNodeLabel"
+            tools:text="0x48713867616473156767516473156767516473156767597" />
 
-            <TextView
-                android:id="@+id/tvParentNode"
-                style="@style/SmallMarginView.SmallText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/ivArrowRight"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="0x48713867616473156767516473156767516473156767597" />
+        <TextView
+            android:id="@+id/tvParentNodeLabel"
+            style="@style/LargeMarginView.MediumText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/parent_node_label"
+            app:layout_constraintTop_toBottomOf="@id/tvNode" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/parentCard"
+            style="@style/SmallMarginCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvParentNodeLabel">
 
-    </androidx.cardview.widget.CardView>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvChildNodesLabel"
-        style="@style/LargeMarginView.MediumText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/child_nodes_label"
-        app:layout_constraintTop_toBottomOf="@id/parentCard" />
+                <ImageView
+                    android:id="@+id/ivArrowRight"
+                    style="@style/SmallActionImage"
+                    android:contentDescription="@string/arrow_right"
+                    android:src="@drawable/outline_arrow_back_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvChildNodes"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddChild"
-        app:layout_constraintTop_toBottomOf="@id/tvChildNodesLabel"
-        tools:listitem="@layout/item_child_node" />
+                <TextView
+                    android:id="@+id/tvParentNode"
+                    style="@style/SmallMarginView.SmallText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivArrowRight"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="0x48713867616473156767516473156767516473156767597" />
 
-    <Button
-        android:id="@+id/btnAddChild"
-        style="@style/SmallMarginBorderlessButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_child_button_label"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnDeleteNode"
-        app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/btnDeleteNode"
-        style="@style/SmallMarginBorderlessButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/delete_node"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnAddChild" />
+        </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvChildNodesLabel"
+            style="@style/LargeMarginView.MediumText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/child_nodes_label"
+            app:layout_constraintTop_toBottomOf="@id/parentCard" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvChildNodes"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/btnAddChild"
+            app:layout_constraintTop_toBottomOf="@id/tvChildNodesLabel"
+            tools:listitem="@layout/item_child_node" />
+
+        <Button
+            android:id="@+id/btnAddChild"
+            style="@style/SmallMarginBorderlessButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_child_button_label"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnDeleteNode"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnDeleteNode"
+            style="@style/SmallMarginBorderlessButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_node"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnAddChild" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

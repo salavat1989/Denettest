@@ -5,13 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.kadyrov.denettest.R
 import com.kadyrov.denettest.appComponent
 import com.kadyrov.denettest.databinding.FragmentNodeBinding
 import com.kadyrov.denettest.domain.entity.Node
+import com.kadyrov.denettest.domain.entity.exception.RootNodeAddException
 import com.kadyrov.denettest.presentation.NodeChildAdapter
 import com.kadyrov.denettest.presentation.NodeViewModel
 import com.kadyrov.denettest.presentation.ViewModelFactory
@@ -61,6 +65,10 @@ class NodeFragment : Fragment() {
 
 	private fun initViewModelObserve() {
 		viewModel.currentNode.observe(viewLifecycleOwner, ::showNode)
+
+		viewModel.loading.observe(viewLifecycleOwner, ::setProgress)
+
+		viewModel.errorMessage.observe(viewLifecycleOwner, ::showErrorMessage)
 	}
 
 	private fun initClickListeners() {
@@ -71,7 +79,7 @@ class NodeFragment : Fragment() {
 			viewModel.openParent()
 		}
 		binding.btnDeleteNode.setOnClickListener {
-			viewModel.deleteNode()
+			openDeleteConfirmationDialog()
 		}
 	}
 
@@ -93,6 +101,42 @@ class NodeFragment : Fragment() {
 			}
 	}
 
+	private fun setProgress(progress: Boolean) {
+		binding.mainProgress.isVisible = progress
+		if (progress) {
+			binding.mainLayout.alpha = PROGRESS_ALPHA
+		} else {
+			binding.mainLayout.alpha = 1f
+		}
+	}
+
+	private fun showErrorMessage(throwable: Throwable) {
+
+		when (throwable) {
+			is RootNodeAddException -> showMessage(R.string.root_node_add_error)
+			else -> showMessage(R.string.unknown_error)
+		}
+
+	}
+
+	private fun showMessage(@StringRes strId: Int) {
+		Snackbar
+			.make(binding.root, strId, Snackbar.LENGTH_SHORT)
+			.show()
+	}
+
+	private fun openDeleteConfirmationDialog() {
+		MaterialAlertDialogBuilder(requireContext())
+			.setTitle(getString(R.string.delete_node))
+			.setMessage(getString(R.string.delete_confirmation_message))
+			.setNegativeButton(getString(R.string.cancel)) { _, _ ->
+			}
+			.setPositiveButton(getString(R.string.ok)) { _, _ ->
+				viewModel.deleteNode()
+			}
+			.show()
+	}
+
 
 	override fun onDestroyView() {
 		nodeChildsAdapter = null
@@ -101,6 +145,7 @@ class NodeFragment : Fragment() {
 	}
 
 	companion object {
+		const val PROGRESS_ALPHA = 0.5f
 		fun newInstance() = NodeFragment()
 	}
 }

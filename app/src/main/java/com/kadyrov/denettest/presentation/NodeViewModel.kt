@@ -9,11 +9,13 @@ import com.kadyrov.denettest.domain.usecase.AddNodeUseCase
 import com.kadyrov.denettest.domain.usecase.DeleteNodeByIdUseCase
 import com.kadyrov.denettest.domain.usecase.GetNodeUseCase
 import com.kadyrov.denettest.domain.usecase.GetRootNodeUseCase
+import com.kadyrov.denettest.extensions.SingleLiveEvent
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class NodeViewModel @Inject constructor(
-	private val getFirstNodeUseCase: GetRootNodeUseCase,
+	private val getRootNodeUseCase: GetRootNodeUseCase,
 	private val addNodeUseCase: AddNodeUseCase,
 	private val getNodeUseCase: GetNodeUseCase,
 	private val deleteNodeByIdUseCase: DeleteNodeByIdUseCase,
@@ -23,26 +25,43 @@ class NodeViewModel @Inject constructor(
 	val currentNode: LiveData<Node> = _currentNode
 	var node: Node? = null
 
+	private val _loading = MutableLiveData<Boolean>()
+	val loading: LiveData<Boolean> = _loading
+
+	private val _errorMessage = SingleLiveEvent<Throwable>()
+	val errorMessage: LiveData<Throwable> = _errorMessage
+
+	private val handler = CoroutineExceptionHandler { _, throwable ->
+		_errorMessage.value = throwable
+		_loading.value = false
+	}
+
 	init {
-		viewModelScope.launch {
-			val firstNode = getFirstNodeUseCase()
+		_loading.value = true
+		viewModelScope.launch(handler) {
+			val firstNode = getRootNodeUseCase()
 			_currentNode.value = firstNode
+			_loading.value = false
 		}
 
 	}
 
 	fun openNodeById(id: Long) {
-		viewModelScope.launch {
+		_loading.value = true
+		viewModelScope.launch(handler) {
 			val node = getNodeUseCase(id)
 			_currentNode.value = node
+			_loading.value = false
 		}
 	}
 
 	fun addChild() {
-		viewModelScope.launch {
-			addNodeUseCase(Node(_currentNode.value, emptyList()))
-			_currentNode.value?.let {
-				openNodeById(it.id)
+		viewModelScope.launch(handler) {
+			_currentNode.value?.let { node ->
+				addNodeUseCase(Node(node, emptyList()))
+				_currentNode.value?.let {
+					openNodeById(it.id)
+				}
 			}
 		}
 	}
@@ -56,11 +75,13 @@ class NodeViewModel @Inject constructor(
 	}
 
 	fun deleteNode() {
-		viewModelScope.launch {
+		_loading.value = true
+		viewModelScope.launch(handler) {
 			_currentNode.value?.let {
 				deleteNodeByIdUseCase(it.id)
 				openParent()
 			}
+			_loading.value = false
 		}
 	}
 }
