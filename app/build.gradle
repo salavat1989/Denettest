@@ -5,10 +5,6 @@ plugins {
 }
 
 android {
-    signingConfigs {
-        realese {
-        }
-    }
     compileSdk 33
 
     defaultConfig {
@@ -22,6 +18,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
