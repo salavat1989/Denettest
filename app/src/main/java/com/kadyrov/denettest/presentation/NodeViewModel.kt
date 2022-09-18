@@ -46,6 +46,8 @@ class NodeViewModel @Inject constructor(
 
 	}
 
+	fun checkParentNodeExist() = _currentNode.value?.parent != null
+
 	fun openNodeById(id: Long) {
 		_loading.value = true
 		viewModelScope.launch(handler) {
@@ -74,13 +76,12 @@ class NodeViewModel @Inject constructor(
 		}
 	}
 
-	fun deleteNode() {
+	fun deleteNodeById(id: Long) {
 		_loading.value = true
 		viewModelScope.launch(handler) {
-			_currentNode.value?.let {
-				deleteNodeByIdUseCase(it.id)
-				openParent()
-			}
+
+			deleteNodeByIdUseCase(id)
+			_currentNode.value?.let { openNodeById(it.id) }
 			_loading.value = false
 		}
 	}

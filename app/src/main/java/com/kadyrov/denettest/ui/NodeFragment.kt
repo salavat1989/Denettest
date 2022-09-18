@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -39,6 +40,23 @@ class NodeFragment : Fragment() {
 		super.onAttach(context)
 	}
 
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+
+		setCustomBackPress()
+	}
+
+	private fun setCustomBackPress() {
+		requireActivity().onBackPressedDispatcher.addCallback(this) {
+			isEnabled = viewModel.checkParentNodeExist()
+			if (isEnabled) {
+				viewModel.openParent()
+			} else {
+				requireActivity().onBackPressedDispatcher.onBackPressed()
+			}
+		}
+	}
+
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?,
@@ -59,7 +77,10 @@ class NodeFragment : Fragment() {
 		val onClick: (Long) -> Unit = { id ->
 			viewModel.openNodeById(id)
 		}
-		nodeChildsAdapter = NodeChildAdapter(onClick)
+		val onLongClick: (Long) -> Unit = { id ->
+			openDeleteConfirmationDialog(id)
+		}
+		nodeChildsAdapter = NodeChildAdapter(onClick, onLongClick)
 		binding.rvChildNodes.adapter = nodeChildsAdapter
 	}
 
@@ -75,11 +96,8 @@ class NodeFragment : Fragment() {
 		binding.btnAddChild.setOnClickListener {
 			viewModel.addChild()
 		}
-		binding.ivArrowRight.setOnClickListener {
+		binding.parentCard.setOnClickListener {
 			viewModel.openParent()
-		}
-		binding.btnDeleteNode.setOnClickListener {
-			openDeleteConfirmationDialog()
 		}
 	}
 
@@ -92,12 +110,10 @@ class NodeFragment : Fragment() {
 				binding.ivArrowRight.isVisible = true
 				binding.tvParentNode.text =
 					String.format(getString(R.string.node_name_format), it.name)
-				binding.btnDeleteNode.isEnabled = true
 			}
 			?: let {
 				binding.ivArrowRight.isVisible = false
 				binding.tvParentNode.text = getString(R.string.root_node_label)
-				binding.btnDeleteNode.isEnabled = false
 			}
 	}
 
@@ -116,7 +132,6 @@ class NodeFragment : Fragment() {
 			is RootNodeAddException -> showMessage(R.string.root_node_add_error)
 			else -> showMessage(R.string.unknown_error)
 		}
-
 	}
 
 	private fun showMessage(@StringRes strId: Int) {
@@ -125,18 +140,17 @@ class NodeFragment : Fragment() {
 			.show()
 	}
 
-	private fun openDeleteConfirmationDialog() {
+	private fun openDeleteConfirmationDialog(id: Long) {
 		MaterialAlertDialogBuilder(requireContext())
 			.setTitle(getString(R.string.delete_node))
 			.setMessage(getString(R.string.delete_confirmation_message))
 			.setNegativeButton(getString(R.string.cancel)) { _, _ ->
 			}
 			.setPositiveButton(getString(R.string.ok)) { _, _ ->
-				viewModel.deleteNode()
+				viewModel.deleteNodeById(id)
 			}
 			.show()
 	}
-
 
 	override fun onDestroyView() {
 		nodeChildsAdapter = null

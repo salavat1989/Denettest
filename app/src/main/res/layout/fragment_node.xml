@@ -54,7 +54,7 @@
 
                 <ImageView
                     android:id="@+id/ivArrowRight"
-                    style="@style/SmallActionImage"
+                    style="@style/SmallImage"
                     android:contentDescription="@string/arrow_right"
                     android:src="@drawable/outline_arrow_back_24"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -96,22 +96,12 @@
         <Button
             android:id="@+id/btnAddChild"
             style="@style/SmallMarginBorderlessButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/add_child_button_label"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnDeleteNode"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/btnDeleteNode"
-            style="@style/SmallMarginBorderlessButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/delete_node"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnAddChild" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

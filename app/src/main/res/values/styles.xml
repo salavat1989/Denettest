@@ -53,4 +53,13 @@
         <item name="android:focusable">true</item>
     </style>
 
+    <style name="SmallImage" >
+        <item name="android:layout_width">@dimen/smallImageSize</item>
+        <item name="android:layout_height">@dimen/smallImageSize</item>
+        <item name="android:layout_marginStart">@dimen/smallMargin</item>
+        <item name="android:layout_marginEnd">@dimen/smallMargin</item>
+        <item name="android:layout_marginTop">@dimen/smallMargin</item>
+        <item name="android:layout_marginBottom">@dimen/smallMargin</item>
+    </style>
+
 </resources>

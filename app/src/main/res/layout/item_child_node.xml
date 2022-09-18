@@ -23,7 +23,7 @@
 
         <ImageView
             android:id="@+id/ivArrowRight"
-            style="@style/SmallActionImage"
+            style="@style/SmallImage"
             android:contentDescription="@string/arrow_right"
             android:src="@drawable/outline_arrow_forward_24"
             app:layout_constraintBottom_toBottomOf="parent"

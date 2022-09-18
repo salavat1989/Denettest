@@ -11,6 +11,7 @@ import com.kadyrov.denettest.domain.entity.Node
 
 class NodeChildAdapter(
 	private val onItemClick: ((Long) -> Unit)? = null,
+	private val onLongItemClick: ((Long) -> Unit)? = null,
 ) : ListAdapter<Node, NodeChildAdapter.LoanViewHolder>(LoanDiff) {
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoanViewHolder {
@@ -37,8 +38,13 @@ class NodeChildAdapter(
 				binding.root.context.getString(R.string.node_name_format),
 				node.name
 			)
-			binding.ivArrowRight.setOnClickListener {
+			binding.root.setOnClickListener {
 				onItemClick?.invoke(node.id)
+			}
+
+			binding.root.setOnLongClickListener {
+				onLongItemClick?.invoke(node.id)
+				true
 			}
 		}
 
